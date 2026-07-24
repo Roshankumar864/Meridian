@@ -25,5 +25,7 @@
     X-Frame-Options = "DENY"
     Permissions-Policy = "geolocation=(), camera=(), microphone=(), interest-cohort=()"
     Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
-    # Everything is first-party and inline; no external origins are needed.
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; form-action 'self'; frame-ancestors 'none'; base-uri 'self'"
+    # Everything is first-party and inline. The single external origin is the
+    # contact form endpoint (see the `form` block in src/_data/site.js) — it must
+    # be allowed in form-action or the browser blocks the submission silently.
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; form-action 'self' https://api.web3forms.com; frame-ancestors 'none'; base-uri 'self'"

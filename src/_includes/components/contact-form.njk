@@ -15,16 +15,18 @@
           the `form` block there for the supported providers.
         #}
         <form class="form" name="enquiry" method="POST" action="{{ site.form.action }}"
-              {% if site.form.netlify %}data-netlify="true" netlify-honeypot="company-website"{% endif %}>
+              {% if site.form.netlify %}data-netlify="true" netlify-honeypot="{{ site.form.honeypot.name }}"{% endif %}>
           {% if site.form.netlify %}<input type="hidden" name="form-name" value="enquiry">{% endif %}
           {% for field, value in site.form.hidden %}
           <input type="hidden" name="{{ field }}" value="{{ value }}">
           {% endfor %}
 
-          {# Honeypot: visually and programmatically hidden from real users. #}
+          {# Honeypot: visually and programmatically hidden from real users.
+             Field name is provider-specific — see site.js. #}
           <p class="visually-hidden" aria-hidden="true">
             <label>Do not fill this in
-              <input name="company-website" tabindex="-1" autocomplete="off">
+              <input type="{{ site.form.honeypot.type }}" name="{{ site.form.honeypot.name }}"
+                     tabindex="-1" autocomplete="off">
             </label>
           </p>
 

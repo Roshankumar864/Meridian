@@ -96,7 +96,9 @@ for (const file of files) {
     const tag = m[0];
     if (/type="(hidden|submit)"/.test(tag)) continue;
     const id = tag.match(/\sid="([^"]+)"/)?.[1];
-    const wrapped = /company-website/.test(tag); // honeypot uses a wrapping label
+    // The honeypot is marked by tabindex="-1" and sits inside a wrapping label,
+    // so it is exempt from the id/label pairing rule.
+    const wrapped = /tabindex="-1"/.test(tag);
     if (!wrapped && (!id || !labelled.has(id)))
       fail(file, `unlabelled form control: ${tag.slice(0, 60)}`);
   }

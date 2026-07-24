@@ -38,27 +38,37 @@ export default {
    * accept it and send the mail. Rather than hard-code one vendor into the
    * template, the endpoint and any hidden fields it requires are declared here.
    *
-   *   action  - where the browser posts
-   *   netlify - adds data-netlify + the hidden form-name input
-   *   hidden  - extra hidden inputs the provider needs (API key, redirect, …)
+   *   action   - where the browser posts
+   *   netlify  - adds data-netlify + the hidden form-name input
+   *   hidden   - extra hidden inputs the provider needs (API key, redirect, …)
+   *   honeypot - bot-trap field; the name has to match what the provider checks
    *
-   * Netlify Forms (requires "Form detection" enabled in project settings AND a
-   * rebuild afterwards — detection happens at build time, not request time):
-   *   { action: "/thanks/", netlify: true, hidden: {} }
+   * Currently: Web3Forms. Chosen over Netlify Forms because it needs no host
+   * support — Netlify Forms depends on a per-project "Form detection" toggle
+   * that is off by default and silently 404s every POST when missed.
    *
-   * Web3Forms (no account, key issued by email, works on any host):
-   *   { action: "https://api.web3forms.com/submit", netlify: false,
-   *     hidden: { access_key: "…", redirect: "<site>/thanks/",
-   *               subject: "New enquiry from the Meridian site" } }
+   * The access key is public by design: it only permits delivery to the address
+   * that registered it, so it cannot be used to send mail anywhere else.
    *
-   * Formspree:
-   *   { action: "https://formspree.io/f/<id>", netlify: false,
-   *     hidden: { _next: "<site>/thanks/" } }
+   * Alternatives, should this ever need to move:
+   *   Netlify Forms (needs Form detection enabled AND a rebuild afterwards):
+   *     { action: "/thanks/", netlify: true, hidden: {},
+   *       honeypot: { name: "company-website", type: "text" } }
+   *   Formspree:
+   *     { action: "https://formspree.io/f/<id>", netlify: false,
+   *       hidden: { _next: `${url}/thanks/` },
+   *       honeypot: { name: "_gotcha", type: "text" } }
    */
   form: {
-    action: "/thanks/",
-    netlify: true,
-    hidden: {},
+    action: "https://api.web3forms.com/submit",
+    netlify: false,
+    hidden: {
+      access_key: "bd442228-eccb-40f6-a521-e72c92900a74",
+      redirect: `${url.replace(/\/$/, "")}/thanks/`,
+      subject: "New enquiry from the Meridian website",
+      from_name: "Meridian website",
+    },
+    honeypot: { name: "botcheck", type: "checkbox" },
   },
 
   social: {

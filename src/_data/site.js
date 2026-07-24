@@ -20,8 +20,8 @@ export default {
   lang: "en",
   themeColor: "#0b1220",
   founded: "2019",
-  email: "hello@meridiancontrol.example",
-  phone: "+44 20 7946 0142",
+  email: "rosh63441@gmail.com",
+  phone: "+91 98219 50573",
   address: {
     street: "40 Rushworth Street",
     city: "London",

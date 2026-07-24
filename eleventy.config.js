@@ -91,7 +91,7 @@ export default function (eleventyConfig) {
           {
             "@type": "ContactPoint",
             contactType: "technical support",
-            email: `support@${site.email.split("@")[1]}`,
+            email: site.email,
             availableLanguage: ["English"],
           },
         ],

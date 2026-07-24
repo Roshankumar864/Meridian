@@ -27,9 +27,10 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addFilter("isoDate", (d) => new Date(d).toISOString());
 
-  // 1450 -> "1,450". Display only; the schema Offer keeps the raw number.
+  // 115000 -> "1,15,000" (Indian digit grouping).
+  // Display only; the schema Offer keeps the raw number.
   eleventyConfig.addFilter("money", (n) =>
-    new Intl.NumberFormat("en-GB").format(n)
+    new Intl.NumberFormat("en-IN").format(n)
   );
 
   // `{{ obj | json }}` for JSON-LD blocks.
@@ -85,8 +86,8 @@ export default function (eleventyConfig) {
             contactType: "sales",
             email: site.email,
             telephone: site.phone,
-            availableLanguage: ["English"],
-            areaServed: ["GB", "EU", "US"],
+            availableLanguage: ["English", "Hindi"],
+            areaServed: ["IN", "AE", "SG", "GB", "US"],
           },
           {
             "@type": "ContactPoint",

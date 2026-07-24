@@ -130,12 +130,12 @@
             <address style="font-style:normal">
               {{ site.address.street }}<br>
               {{ site.address.city }} {{ site.address.postcode }}<br>
-              United Kingdom
+              {{ site.address.countryName }}
             </address>
           </dd>
 
           <dt>Hours</dt>
-          <dd>Monday to Friday, 09:00&ndash;18:00 UK time.</dd>
+          <dd>{{ site.hours }}.</dd>
         </dl>
       </div>
     </div>

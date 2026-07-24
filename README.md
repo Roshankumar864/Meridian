@@ -188,8 +188,9 @@ Lighthouse sweep on every push, and uploads the reports as artefacts.
 
 ## Notes
 
-Meridian is a fictional company. The logos, statistics, testimonials and
-certifications are invented for this exercise, and the contact addresses use the
-reserved `.example` TLD so nothing can be sent to a real inbox.
+Meridian is a fictional company. The logos, statistics, testimonials,
+certifications and registered address are invented for this exercise. The email
+address and phone number are real and belong to the author of this build, so
+enquiries about the work itself reach a person.
 
 Built for Digital Heroes Training Task — <https://digitalheroesco.com>

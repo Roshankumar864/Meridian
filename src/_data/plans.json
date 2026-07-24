@@ -1,12 +1,12 @@
 {
-  "currency": "GBP",
-  "currencySymbol": "£",
-  "note": "Prices exclude VAT. Annual billing shown; monthly billing adds 20%.",
+  "currency": "INR",
+  "currencySymbol": "₹",
+  "note": "Prices exclude GST. Annual billing shown; monthly billing adds 20%.",
   "tiers": [
     {
       "id": "start",
       "name": "Start",
-      "price": 490,
+      "price": 39000,
       "unit": "per month, billed annually",
       "summary": "One framework, one cloud account, up to 40 employees. Enough to get through a first SOC 2 Type I without hiring for it.",
       "cta": { "text": "Start a trial", "url": "/contact/#trial" },
@@ -23,7 +23,7 @@
     {
       "id": "scale",
       "name": "Scale",
-      "price": 1450,
+      "price": 115000,
       "unit": "per month, billed annually",
       "summary": "Multiple frameworks and unlimited integrations, for teams running continuous audits rather than annual ones.",
       "cta": { "text": "Book a demo", "url": "/contact/#demo" },

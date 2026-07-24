@@ -31,6 +31,36 @@ export default {
     countryName: "India",
   },
   hours: "Monday to Friday, 09:30–18:30 IST",
+  /**
+   * Contact form target.
+   *
+   * A static site has no server, so the POST has to go somewhere that will
+   * accept it and send the mail. Rather than hard-code one vendor into the
+   * template, the endpoint and any hidden fields it requires are declared here.
+   *
+   *   action  - where the browser posts
+   *   netlify - adds data-netlify + the hidden form-name input
+   *   hidden  - extra hidden inputs the provider needs (API key, redirect, …)
+   *
+   * Netlify Forms (requires "Form detection" enabled in project settings AND a
+   * rebuild afterwards — detection happens at build time, not request time):
+   *   { action: "/thanks/", netlify: true, hidden: {} }
+   *
+   * Web3Forms (no account, key issued by email, works on any host):
+   *   { action: "https://api.web3forms.com/submit", netlify: false,
+   *     hidden: { access_key: "…", redirect: "<site>/thanks/",
+   *               subject: "New enquiry from the Meridian site" } }
+   *
+   * Formspree:
+   *   { action: "https://formspree.io/f/<id>", netlify: false,
+   *     hidden: { _next: "<site>/thanks/" } }
+   */
+  form: {
+    action: "/thanks/",
+    netlify: true,
+    hidden: {},
+  },
+
   social: {
     linkedin: "https://www.linkedin.com/company/example-meridian",
     github: "https://github.com/example-meridian",

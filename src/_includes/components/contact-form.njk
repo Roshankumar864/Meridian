@@ -10,13 +10,16 @@
         </div>
 
         {#
-          Posts to Netlify Forms - no client-side JS, so the form degrades to a
-          plain HTML POST and works with scripting disabled.
-          On any other host, swap the action for your own endpoint.
+          A plain HTML POST with no client-side JS, so the form works with
+          scripting disabled. The target is configured in _data/site.js — see
+          the `form` block there for the supported providers.
         #}
-        <form class="form" name="enquiry" method="POST" action="/thanks/"
-              data-netlify="true" netlify-honeypot="company-website">
-          <input type="hidden" name="form-name" value="enquiry">
+        <form class="form" name="enquiry" method="POST" action="{{ site.form.action }}"
+              {% if site.form.netlify %}data-netlify="true" netlify-honeypot="company-website"{% endif %}>
+          {% if site.form.netlify %}<input type="hidden" name="form-name" value="enquiry">{% endif %}
+          {% for field, value in site.form.hidden %}
+          <input type="hidden" name="{{ field }}" value="{{ value }}">
+          {% endfor %}
 
           {# Honeypot: visually and programmatically hidden from real users. #}
           <p class="visually-hidden" aria-hidden="true">

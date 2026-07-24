@@ -175,9 +175,31 @@ and the other security headers, and the contact form is wired to Netlify Forms):
    correctly. Netlify's own `URL` variable is picked up automatically.
 
 **Anything else** (Cloudflare Pages, Vercel, S3): build command `npm run build`,
-output `_site`, Node 20+. Set `SITE_URL`. If you are not on Netlify, repoint the
-form `action` in `src/_includes/components/contact-form.njk` at your own
-endpoint.
+output `_site`, Node 20+. Set `SITE_URL`.
+
+### The contact form
+
+A static site has no server, so the POST needs a service to receive it. The
+target is configured in the `form` block of `src/_data/site.js` — `action`,
+whether to emit the Netlify attributes, and any hidden fields the provider
+requires. Switching providers is a config edit, not a template change.
+
+If you use **Netlify Forms**, two things are required and both are easy to miss:
+
+1. **Project configuration → Forms → enable Form detection.** New Netlify sites
+   have this off by default.
+2. **Redeploy afterwards.** Detection runs at build time, so an existing deploy
+   will not pick it up — trigger *Clear cache and deploy site*.
+
+Symptom when either step is missed: `POST` returns 404 on every path (including
+`/`) while `GET /thanks/` returns 200 — the submission falls through to the
+static file server, which has no route for a POST.
+
+3. **Forms → Notifications → Email notification.** Netlify stores submissions in
+   the dashboard and does *not* email them by default.
+
+Providers that need no host support (and therefore no toggle) are documented
+alongside the config in `site.js`.
 
 GitHub Pages works too, but a *project* Pages site is served from
 `/<repo>/`, which breaks the root-relative URLs. Use a custom domain or a

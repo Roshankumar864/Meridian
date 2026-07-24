@@ -53,6 +53,12 @@ PageSpeed Insights also reports CrUX field data once the site has enough real
 traffic; a new deployment will show lab data only at first, which is expected
 and not a failure.
 
+`tools/psi.js <origin>` automates the same thing across all four pages and
+writes `psi-summary.md` alongside the raw responses. Note that the PageSpeed
+API's keyless quota is shared across all anonymous callers and is frequently
+exhausted (HTTP 429); pass a free API key from the Google Cloud console, or use
+the web UI above, which has no such limit.
+
 ## How the numbers are achieved
 
 Nothing here is a trick — the page simply does very little.

@@ -1,0 +1,27 @@
+{
+  "primary": [
+    { "text": "Product", "url": "/product/" },
+    { "text": "Pricing", "url": "/pricing/" },
+    { "text": "Contact", "url": "/contact/" }
+  ],
+  "cta": { "text": "Book a demo", "url": "/contact/#demo" },
+  "footer": [
+    {
+      "heading": "Platform",
+      "links": [
+        { "text": "Product tour", "url": "/product/" },
+        { "text": "Control library", "url": "/product/#controls" },
+        { "text": "Integrations", "url": "/product/#integrations" },
+        { "text": "Pricing", "url": "/pricing/" }
+      ]
+    },
+    {
+      "heading": "Company",
+      "links": [
+        { "text": "Contact sales", "url": "/contact/" },
+        { "text": "Support", "url": "/contact/#support" },
+        { "text": "Security", "url": "/product/#security" }
+      ]
+    }
+  ]
+}

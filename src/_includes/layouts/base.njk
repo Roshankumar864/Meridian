@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="{{ site.lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add('js')</script>
+
+{# --- Canonical + titles ------------------------------------------------ #}
+{% set pageTitle = title + " | " + site.name if not isHome else title %}
+{% set pageDesc = description or site.description %}
+{% set canonical = (page.url | absoluteUrl(site.url)) %}
+{% set ogImage = (ogImage or "/assets/img/og.png") | absoluteUrl(site.url) %}
+
+<title>{{ pageTitle }}</title>
+<meta name="description" content="{{ pageDesc }}">
+<link rel="canonical" href="{{ canonical }}">
+<meta name="theme-color" content="{{ site.themeColor }}">
+{% if noindex %}<meta name="robots" content="noindex, follow">{% else %}<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">{% endif %}
+
+{# --- Open Graph / Twitter ---------------------------------------------- #}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:locale" content="{{ site.locale }}">
+<meta property="og:title" content="{{ ogTitle or pageTitle }}">
+<meta property="og:description" content="{{ pageDesc }}">
+<meta property="og:url" content="{{ canonical }}">
+<meta property="og:image" content="{{ ogImage }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ ogImageAlt or (site.name + " — " + site.tagline) }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ ogTitle or pageTitle }}">
+<meta name="twitter:description" content="{{ pageDesc }}">
+<meta name="twitter:image" content="{{ ogImage }}">
+
+<link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+
+{# Stylesheet is inlined: ~9 KB, removes a render-blocking request. #}
+<style>{% inlineCss %}</style>
+
+<script type="application/ld+json">{% schemaGraph {
+  site: site,
+  page: page,
+  meta: {
+    title: pageTitle,
+    description: pageDesc,
+    pageType: pageType,
+    product: product,
+    featureList: featureList
+  },
+  plans: plans,
+  faqs: faqs[faqSource],
+  breadcrumbs: breadcrumbs
+} %}</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+{% include "components/header.njk" %}
+
+<main id="main" tabindex="-1">
+{% if breadcrumbs %}{% include "components/breadcrumbs.njk" %}{% endif %}
+{{ content | safe }}
+</main>
+
+{% include "components/footer.njk" %}
+
+<script>
+/* Progressive enhancement only: the nav is a plain list that works with JS off.
+   Inline (~380 bytes) so it costs no extra request. */
+(function () {
+  var btn = document.querySelector('.nav-toggle');
+  var nav = document.getElementById('primary-nav');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', function () {
+    var open = nav.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', String(open));
+  });
+})();
+</script>
+</body>
+</html>

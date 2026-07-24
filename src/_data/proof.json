@@ -1,0 +1,52 @@
+{
+  "logos": [
+    "Halden Freight",
+    "Cobalt Health",
+    "Verity Pay",
+    "Northgate Legal",
+    "Ordnance Labs",
+    "Trelawney"
+  ],
+  "stats": [
+    { "value": "9 days", "label": "Median SOC 2 fieldwork for Meridian customers" },
+    { "value": "184", "label": "Pre-mapped controls across five frameworks" },
+    { "value": "71%", "label": "Of evidence collected without human involvement" },
+    { "value": "99.98%", "label": "Platform uptime over the last 12 months" }
+  ],
+  "testimonials": [
+    {
+      "quote": "We went into our second SOC 2 with four people instead of eleven, and the auditor pulled their own evidence. The prep work that used to eat a quarter now happens quietly in the background.",
+      "name": "Priya Raman",
+      "role": "VP Engineering, Verity Pay"
+    },
+    {
+      "quote": "The thing that sold our CTO wasn't the dashboard. It was that a failed check opens a Jira ticket against the team that owns the resource, with the fix written out.",
+      "name": "Tom Alderice",
+      "role": "Head of Security, Cobalt Health"
+    }
+  ],
+  "steps": [
+    {
+      "title": "Connect",
+      "body": "Link your cloud accounts, code hosts, identity provider and HR system with read-only access. Meridian inventories what you have and maps it to controls."
+    },
+    {
+      "title": "Assign",
+      "body": "Every control gets a named owner and a cadence. Gaps become tickets in the tools your teams already work in."
+    },
+    {
+      "title": "Monitor",
+      "body": "Checks run continuously. Drift raises an alert with the affected resources and a remediation path, before it becomes an audit finding."
+    },
+    {
+      "title": "Report",
+      "body": "Grant your auditor scoped access. They collect evidence directly, and you get a live readiness view rather than a spreadsheet."
+    }
+  ],
+  "integrations": [
+    "AWS", "Google Cloud", "Azure", "GitHub", "GitLab", "Okta",
+    "Entra ID", "Google Workspace", "Jamf", "Kandji", "BambooHR",
+    "HiBob", "Jira", "Linear", "Slack", "Microsoft Teams",
+    "Datadog", "PagerDuty", "Snyk", "CrowdStrike", "Vanta Import", "Custom API"
+  ]
+}

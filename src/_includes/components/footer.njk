@@ -1,0 +1,45 @@
+<footer class="site-footer on-dark">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <h2>{{ site.name }}</h2>
+        <p>{{ site.tagline }}.</p>
+        <p>
+          <a href="mailto:{{ site.email }}">{{ site.email }}</a><br>
+          <a href="tel:{{ site.phone | replace(" ", "") }}">{{ site.phone }}</a>
+        </p>
+      </div>
+
+      {% for group in nav.footer %}
+      <nav aria-labelledby="footer-{{ loop.index }}">
+        <h2 id="footer-{{ loop.index }}">{{ group.heading }}</h2>
+        <ul>
+          {% for link in group.links %}
+          <li><a href="{{ link.url }}">{{ link.text }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+      {% endfor %}
+
+      <div>
+        <h2>Registered office</h2>
+        <address style="font-style:normal">
+          {{ site.legalName }}<br>
+          {{ site.address.street }}<br>
+          {{ site.address.city }} {{ site.address.postcode }}<br>
+          United Kingdom
+        </address>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p style="margin:0">
+        &copy; {{ year }} {{ site.legalName }}.
+        Meridian is a fictional company created for a portfolio exercise.
+      </p>
+      <p class="footer__credit" style="margin:0">
+        <a href="{{ site.credit.url }}" rel="noopener">{{ site.credit.text }}</a>
+      </p>
+    </div>
+  </div>
+</footer>

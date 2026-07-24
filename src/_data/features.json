@@ -1,0 +1,66 @@
+{
+  "home": [
+    {
+      "icon": "shield",
+      "title": "Controls that test themselves",
+      "body": "Every control maps to an automated check that runs against your cloud accounts, code hosts and HR system on a schedule you set — not a screenshot someone took in March."
+    },
+    {
+      "icon": "flow",
+      "title": "Evidence collected on the way past",
+      "body": "Meridian watches the systems your team already uses and files the evidence as work happens, so nobody spends the last fortnight before an audit chasing tickets."
+    },
+    {
+      "icon": "clock",
+      "title": "Drift caught in hours, not quarters",
+      "body": "A public bucket, a missed offboarding, an unreviewed production change — you hear about it the same day, with the owner and the remediation already attached."
+    },
+    {
+      "icon": "layers",
+      "title": "One control set, many frameworks",
+      "body": "SOC 2, ISO 27001, HIPAA and GDPR share most of their requirements. Satisfy a control once and Meridian credits it everywhere it applies."
+    },
+    {
+      "icon": "people",
+      "title": "Built for the people doing the work",
+      "body": "Tasks land in Jira and Slack with the context an engineer needs. No parallel portal that only the compliance lead ever opens."
+    },
+    {
+      "icon": "report",
+      "title": "Auditor-ready by default",
+      "body": "Give your auditor scoped read-only access. They pull evidence themselves, which is how a six-week fieldwork window turns into nine days."
+    }
+  ],
+  "product": [
+    {
+      "icon": "shield",
+      "title": "Control library",
+      "body": "184 pre-mapped controls across five frameworks, each with an owner, a test, a cadence and a plain-English description your board can read."
+    },
+    {
+      "icon": "flow",
+      "title": "Automated evidence",
+      "body": "Continuous collection from AWS, GCP, Azure, GitHub, GitLab, Okta, Jamf, BambooHR and 40 more, with a documented API for anything in-house."
+    },
+    {
+      "icon": "alert",
+      "title": "Drift monitoring",
+      "body": "Checks run hourly or daily. Failures open a ticket against the owning team with severity, affected resources and a suggested fix."
+    },
+    {
+      "icon": "people",
+      "title": "Personnel and access",
+      "body": "Onboarding, offboarding, background checks, policy acceptance and access reviews tracked against your HR system of record."
+    },
+    {
+      "icon": "vendor",
+      "title": "Vendor management",
+      "body": "Risk-tier your suppliers, store their reports, and get told when a critical vendor's SOC 2 is about to lapse."
+    },
+    {
+      "icon": "report",
+      "title": "Auditor workspace",
+      "body": "Scoped, read-only, time-boxed access with a full request log — so evidence handover stops living in a shared drive."
+    }
+  ]
+}

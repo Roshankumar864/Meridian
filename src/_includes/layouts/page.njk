@@ -1,0 +1,13 @@
+---
+layout: layouts/base.njk
+---
+{#
+  Composed page: renders the `sections` array from the page's front matter in
+  order. Pages carry content and ordering; this layout carries no page-specific
+  markup at all.
+#}
+{% for section in sections %}
+  {% include "components/section.njk" %}
+{% endfor %}
+
+{{ content | safe }}

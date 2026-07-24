@@ -1,0 +1,46 @@
+{
+  "pricing": [
+    {
+      "q": "Is there an implementation fee?",
+      "a": "No. Every plan includes guided onboarding — connecting your integrations, mapping your control owners and importing existing policies. Most teams are collecting evidence within a week."
+    },
+    {
+      "q": "What counts as an employee for billing?",
+      "a": "Anyone in scope for your security programme: full-time staff and contractors with access to production systems. Auditors, advisors and read-only board members are free."
+    },
+    {
+      "q": "Can we add a framework mid-term?",
+      "a": "Yes. Frameworks are added pro rata for the remainder of your term, and any control you already satisfy is credited immediately rather than restarted."
+    },
+    {
+      "q": "Do you resell the audit itself?",
+      "a": "No, and deliberately so. You choose your own auditor. We keep a list of firms our customers rate well, but we take no fee for the introduction — an audit is worth more when the platform vendor isn't paying for the opinion."
+    },
+    {
+      "q": "What happens to our evidence if we leave?",
+      "a": "You can export the full evidence archive and control history as a signed ZIP at any point during the contract and for 90 days after it ends. No exit fee."
+    },
+    {
+      "q": "Do you offer a discount for early-stage companies?",
+      "a": "Companies under 20 people that have raised less than £3m get 40% off the Start plan for the first year. Ask on the contact form and we will apply it to your quote."
+    }
+  ],
+  "product": [
+    {
+      "q": "How long does it take to connect our stack?",
+      "a": "Cloud and identity integrations are OAuth or role-based and take minutes. A typical team has AWS, GitHub and Okta connected in a single afternoon session."
+    },
+    {
+      "q": "Does Meridian need write access to our infrastructure?",
+      "a": "No. Every standard integration is read-only, scoped to configuration metadata. We never request access to customer data, object storage contents or source code."
+    },
+    {
+      "q": "Can we write our own controls?",
+      "a": "Yes. Custom controls accept any HTTPS endpoint or scheduled job that returns a pass/fail with evidence, so anything you can query, you can monitor."
+    },
+    {
+      "q": "Will our auditor accept automated evidence?",
+      "a": "It is now the norm. Evidence carries a timestamp, the source system, the query used and a tamper-evident hash, which is a stronger artefact than a manual screenshot."
+    }
+  ]
+}

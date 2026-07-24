@@ -1,0 +1,39 @@
+name: Build and audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      # Structural gate: heading order, single h1, labelled controls, duplicate
+      # ids, JSON-LD validity, meta completeness, per-page HTML weight.
+      - name: Structural audit
+        run: npm run check
+
+      - name: Lighthouse (mobile + desktop, all pages)
+        run: |
+          npx --yes http-server _site -p 8099 --silent &
+          npx --yes wait-on http://127.0.0.1:8099/
+          node tools/lighthouse.js
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-reports
+          path: docs/evidence/

@@ -1,0 +1,278 @@
+{#
+  Section renderer.
+
+  A page is an ordered list of sections declared in its front matter; this file
+  maps `section.type` to markup. Adding a section to a page, reordering one or
+  changing its copy is a front-matter edit — no template work. Adding a new
+  *kind* of section is the only thing that touches this file.
+
+  Every block owns the same contract:
+    id?        -> anchor target
+    tone?      -> "soft" | "dark" (background treatment)
+    eyebrow?   -> small label above the heading
+    heading?   -> rendered as <h2> (the page's single <h1> lives in `hero`)
+    intro?     -> supporting paragraph
+    source?    -> key into the matching data file, e.g. features.json
+#}
+{% import "components/icons.njk" as ic %}
+
+{% set tone = " section--" + section.tone if section.tone else "" %}
+{% set dark = " on-dark" if section.tone == "dark" else "" %}
+
+{#- ------------------------------------------------------------------ HERO -#}
+{% if section.type == "hero" %}
+<section class="hero{{ dark }}">
+  <div class="wrap hero__grid{{ '' if section.stats else ' hero__grid--single' }}">
+    <div>
+      {% if section.eyebrow %}<p class="eyebrow">{{ section.eyebrow }}</p>{% endif %}
+      <h1>{{ section.heading }}</h1>
+      <p class="hero__lede">{{ section.intro }}</p>
+      {% if section.actions %}
+      <div class="btn-row">
+        {% for a in section.actions %}
+        <a class="btn btn--{{ a.style or 'primary' }}" href="{{ a.url }}">{{ a.text }}</a>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {# `note` allows inline markup (a mailto link, an <abbr>); authored in-repo. #}
+      {% if section.note %}<p class="hero__note">{{ section.note | safe }}</p>{% endif %}
+    </div>
+    {% if section.stats %}
+    <div class="grid grid--2" role="list">
+      {% for s in proof.stats %}
+      <div class="stat" role="listitem">
+        <span class="stat__value">{{ s.value }}</span>
+        <p class="stat__label">{{ s.label }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{#- -------------------------------------------------------------- FEATURES -#}
+{% elif section.type == "features" %}
+<section class="section{{ tone }}{{ dark }}" {% if section.id %}id="{{ section.id }}" aria-labelledby="h-{{ section.id }}"{% endif %}>
+  <div class="wrap">
+    <div class="section__head">
+      {% if section.eyebrow %}<p class="eyebrow">{{ section.eyebrow }}</p>{% endif %}
+      <h2 {% if section.id %}id="h-{{ section.id }}"{% endif %}>{{ section.heading }}</h2>
+      {% if section.intro %}<p>{{ section.intro }}</p>{% endif %}
+    </div>
+    <div class="grid grid--3">
+      {% for f in features[section.source] %}
+      <article class="card">
+        <span class="card__icon">{{ ic.icon(f.icon) }}</span>
+        <h3>{{ f.title }}</h3>
+        <p>{{ f.body }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{#- ----------------------------------------------------------------- STEPS -#}
+{% elif section.type == "steps" %}
+<section class="section{{ tone }}{{ dark }}" {% if section.id %}id="{{ section.id }}" aria-labelledby="h-{{ section.id }}"{% endif %}>
+  <div class="wrap">
+    <div class="section__head">
+      {% if section.eyebrow %}<p class="eyebrow">{{ section.eyebrow }}</p>{% endif %}
+      <h2 {% if section.id %}id="h-{{ section.id }}"{% endif %}>{{ section.heading }}</h2>
+      {% if section.intro %}<p>{{ section.intro }}</p>{% endif %}
+    </div>
+    <ol class="steps grid grid--4">
+      {% for s in proof.steps %}
+      <li>
+        <h3>{{ s.title }}</h3>
+        <p>{{ s.body }}</p>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+
+{#- ----------------------------------------------------------------- STATS -#}
+{% elif section.type == "stats" %}
+<section class="section{{ tone }}{{ dark }}" aria-labelledby="h-stats">
+  <div class="wrap">
+    <h2 id="h-stats" class="visually-hidden">{{ section.heading or "Results" }}</h2>
+    <div class="grid grid--4">
+      {% for s in proof.stats %}
+      <div class="stat">
+        <span class="stat__value">{{ s.value }}</span>
+        <p class="stat__label">{{ s.label }}</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{#- ----------------------------------------------------------------- LOGOS -#}
+{% elif section.type == "logos" %}
+<section class="section{{ tone }}{{ dark }}" aria-labelledby="h-logos" style="padding-block:clamp(2rem,4vw,3rem)">
+  <div class="wrap">
+    <h2 id="h-logos" class="eyebrow" style="margin-bottom:1rem">{{ section.heading }}</h2>
+    <ul class="logo-strip">
+      {% for l in proof.logos %}<li>{{ l }}</li>{% endfor %}
+    </ul>
+  </div>
+</section>
+
+{#- ------------------------------------------------------------ INTEGRATIONS -#}
+{% elif section.type == "integrations" %}
+<section class="section{{ tone }}{{ dark }}" {% if section.id %}id="{{ section.id }}" aria-labelledby="h-{{ section.id }}"{% endif %}>
+  <div class="wrap">
+    <div class="section__head">
+      {% if section.eyebrow %}<p class="eyebrow">{{ section.eyebrow }}</p>{% endif %}
+      <h2 {% if section.id %}id="h-{{ section.id }}"{% endif %}>{{ section.heading }}</h2>
+      {% if section.intro %}<p>{{ section.intro }}</p>{% endif %}
+    </div>
+    <ul class="chips">
+      {% for i in proof.integrations %}<li>{{ i }}</li>{% endfor %}
+    </ul>
+  </div>
+</section>
+
+{#- ---------------------------------------------------------------- QUOTES -#}
+{% elif section.type == "quotes" %}
+<section class="section{{ tone }}{{ dark }}" aria-labelledby="h-quotes">
+  <div class="wrap">
+    <div class="section__head">
+      <h2 id="h-quotes">{{ section.heading }}</h2>
+      {% if section.intro %}<p>{{ section.intro }}</p>{% endif %}
+    </div>
+    <div class="grid grid--2">
+      {% for t in proof.testimonials %}
+      <figure class="quote">
+        <blockquote><p>{{ t.quote }}</p></blockquote>
+        <figcaption>
+          <strong>{{ t.name }}</strong>
+          {{ t.role }}
+        </figcaption>
+      </figure>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{#- --------------------------------------------------------------- PRICING -#}
+{% elif section.type == "pricing" %}
+<section class="section{{ tone }}{{ dark }}" {% if section.id %}id="{{ section.id }}"{% endif %} aria-labelledby="h-plans">
+  <div class="wrap">
+    <div class="section__head">
+      {% if section.eyebrow %}<p class="eyebrow">{{ section.eyebrow }}</p>{% endif %}
+      <h2 id="h-plans">{{ section.heading }}</h2>
+      {% if section.intro %}<p>{{ section.intro }}</p>{% endif %}
+    </div>
+    <div class="grid grid--3">
+      {% for t in plans.tiers %}
+      <article class="card price-card{{ ' price-card--featured' if t.featured }}"
+               id="plan-{{ t.id }}" aria-labelledby="plan-{{ t.id }}-name">
+        {% if t.featured %}<span class="price-card__badge">Most chosen</span>{% endif %}
+        <h3 id="plan-{{ t.id }}-name">{{ t.name }}</h3>
+        <p class="price-card__amount">
+          {% if t.price %}
+            <span>{{ plans.currencySymbol }}{{ t.price | money }}</span>
+          {% else %}
+            <span>{{ t.priceLabel }}</span>
+          {% endif %}
+        </p>
+        <p class="price-card__unit">{{ t.unit }}</p>
+        <p>{{ t.summary }}</p>
+        <h4 class="visually-hidden">What {{ t.name }} includes</h4>
+        <ul class="tick-list">
+          {% for inc in t.includes %}<li>{{ inc }}</li>{% endfor %}
+        </ul>
+        <a class="btn btn--{{ 'primary' if t.featured else 'ghost' }}" href="{{ t.cta.url }}">
+          {{ t.cta.text }}<span class="visually-hidden"> — {{ t.name }} plan</span>
+        </a>
+      </article>
+      {% endfor %}
+    </div>
+    {% if plans.note %}<p class="hero__note">{{ plans.note }}</p>{% endif %}
+  </div>
+</section>
+
+{#- ------------------------------------------------------------ COMPARISON -#}
+{% elif section.type == "comparison" %}
+<section class="section{{ tone }}{{ dark }}" {% if section.id %}id="{{ section.id }}"{% endif %} aria-labelledby="h-compare">
+  <div class="wrap">
+    <div class="section__head">
+      <h2 id="h-compare">{{ section.heading }}</h2>
+      {% if section.intro %}<p>{{ section.intro }}</p>{% endif %}
+    </div>
+    <div class="table-scroll" tabindex="0" role="region" aria-labelledby="h-compare">
+      <table>
+        <caption>{{ plans.comparison.caption }}</caption>
+        <thead>
+          <tr>
+            <th scope="col">Feature</th>
+            {% for c in plans.comparison.columns %}<th scope="col">{{ c }}</th>{% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in plans.comparison.rows %}
+          <tr>
+            <th scope="row">{{ row.label }}</th>
+            {% for v in row.values %}
+            <td>{% if v == "—" %}<span aria-hidden="true">—</span><span class="visually-hidden">Not included</span>{% else %}{{ v }}{% endif %}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{#- ------------------------------------------------------------------- FAQ -#}
+{% elif section.type == "faq" %}
+<section class="section{{ tone }}{{ dark }}" {% if section.id %}id="{{ section.id }}"{% endif %} aria-labelledby="h-faq">
+  <div class="wrap wrap--narrow">
+    <div class="section__head">
+      {% if section.eyebrow %}<p class="eyebrow">{{ section.eyebrow }}</p>{% endif %}
+      <h2 id="h-faq">{{ section.heading }}</h2>
+      {% if section.intro %}<p>{{ section.intro }}</p>{% endif %}
+    </div>
+    <div class="faq">
+      {% for f in faqs[section.source] %}
+      <details {% if loop.first %}open{% endif %}>
+        <summary><span>{{ f.q }}</span></summary>
+        <div><p>{{ f.a }}</p></div>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{#- ----------------------------------------------------------------- PROSE -#}
+{% elif section.type == "prose" %}
+<section class="section{{ tone }}{{ dark }}" {% if section.id %}id="{{ section.id }}" aria-labelledby="h-{{ section.id }}"{% endif %}>
+  <div class="wrap wrap--narrow prose">
+    {% if section.eyebrow %}<p class="eyebrow">{{ section.eyebrow }}</p>{% endif %}
+    <h2 {% if section.id %}id="h-{{ section.id }}"{% endif %}>{{ section.heading }}</h2>
+    {% for p in section.body %}<p>{{ p }}</p>{% endfor %}
+    {% if section.list %}
+    <ul>{% for li in section.list %}<li>{{ li }}</li>{% endfor %}</ul>
+    {% endif %}
+  </div>
+</section>
+
+{#- --------------------------------------------------------------- CONTACT -#}
+{% elif section.type == "contact" %}
+{% include "components/contact-form.njk" %}
+
+{#- ------------------------------------------------------------------- CTA -#}
+{% elif section.type == "cta" %}
+<section class="section{{ tone }}{{ dark }}" aria-labelledby="h-cta">
+  <div class="wrap wrap--narrow" style="text-align:center">
+    <h2 id="h-cta">{{ section.heading }}</h2>
+    <p style="margin-inline:auto">{{ section.intro }}</p>
+    <div class="btn-row" style="justify-content:center">
+      {% for a in section.actions %}
+      <a class="btn btn--{{ a.style or 'primary' }}" href="{{ a.url }}">{{ a.text }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}

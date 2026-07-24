@@ -1,0 +1,23 @@
+{
+  "name": "meridian-marketing-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Multi-page marketing site for Meridian, a fictional B2B compliance automation company. Eleventy, no framework, no page builder.",
+  "license": "MIT",
+  "scripts": {
+    "dev": "eleventy --serve --port=8080",
+    "build": "eleventy",
+    "images": "node tools/build-images.js",
+    "check": "node tools/audit.js",
+    "lh": "node tools/lighthouse.js",
+    "summarise": "node tools/summarise.js"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "sharp": "^0.35.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
